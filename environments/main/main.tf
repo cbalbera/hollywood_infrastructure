@@ -4,3 +4,17 @@ module "ecr" {
     project_name = var.project_name
     env          = var.env
 }
+
+module "lambda" {
+    source = "./../../modules/lambda"
+
+    project_name        = var.project_name
+    env                 = var.env
+    ecr_repository_url  = "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project_name}-${var.env}"
+
+    # tfvars
+    db_name      = var.db_name
+    db_pwd       = var.db_pwd
+    db_host      = var.db_host
+    db_user      = var.db_user
+}

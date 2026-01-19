@@ -12,7 +12,13 @@ locals {
         ManagedBy   = "terraform"
     })
 
+    # suffix = var.use_suffix ? "-${random_id.suffix.hex}" : ""
+
 }
+
+# resource "random_id" "suffix" {
+#     byte_length = 8
+# }
 
 resource "aws_lambda_function" "processor" {
     for_each = local.lambda_functions
@@ -36,5 +42,28 @@ resource "aws_lambda_function" "processor" {
         }
     }
 
+    depends_on = [aws_iam_role.processor_role]
 
+}
+
+resource "aws_iam_role" "processor_role" {
+    for_each = local.lambda_functions
+
+    name = "${var.project_name}-${var.env}-${each.key}-role"
+
+    assume_role_policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [{
+            Action = "sts:AssumeRole"
+            Effect = "Allow"
+            Principal = {
+            Service = "lambda.amazonaws.com"
+            }
+        }]
+    })
+
+    tags = merge(local.normalized_tags, {
+        Name  = "${var.project_name}-${var.env}-${each.key}-role"
+        Model = each.key
+    })
 }
