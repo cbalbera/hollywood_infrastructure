@@ -7,7 +7,7 @@ variable "project_name" {
 variable "env" {
   description = "Environment name"
   type        = string
-  default     = "main"
+  default     = "qa"
 }
 
 variable "aws_account_id" {

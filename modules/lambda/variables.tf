@@ -60,3 +60,31 @@ variable "db_user" {
   type        = string
   # default     = "placeholder"
 }
+
+variable "sqs_queue_arn" {
+  description = "ARN of the SQS queue to trigger populate lambda"
+  type        = string
+}
+
+variable "dlq_arn" {
+  description = "ARN of the related dead-letter queue for populate lambda"
+  type        = string
+}
+
+variable "batch_size" {
+  description = "Maximum number of records to process in a batch"
+  type        = number
+  default     = 1
+}
+
+variable "batch_window" {
+  description = "Maximum time to wait before processing a batch in seconds"
+  type        = number
+  default     = 0
+}
+
+variable "max_concurrency" {
+  description = "Maximum concurrency for Lambda scaling"
+  type        = number
+  default     = 10
+}

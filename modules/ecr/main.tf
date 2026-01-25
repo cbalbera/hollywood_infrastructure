@@ -44,19 +44,19 @@ resource "aws_ecr_lifecycle_policy" "ecr_repos" {
           type = "expire"
         }
       },
-    #   {
-    #     rulePriority = 2
-    #     description  = "Keep only the newest image tagged as 'qa'"
-    #     selection = {
-    #       tagStatus      = "tagged"
-    #       tagPatternList = ["qa"]
-    #       countType      = "imageCountMoreThan"
-    #       countNumber    = 1
-    #     }
-    #     action = {
-    #       type = "expire"
-    #     }
-    #   },
+      {
+        rulePriority = 2
+        description  = "Keep only the newest image tagged as 'qa'"
+        selection = {
+          tagStatus      = "tagged"
+          tagPatternList = ["qa"]
+          countType      = "imageCountMoreThan"
+          countNumber    = 1
+        }
+        action = {
+          type = "expire"
+        }
+      },
       {
         rulePriority = 4
         description  = "Keep only the newest image tagged as 'main'"
