@@ -1,6 +1,7 @@
 locals {
     lambda_functions = {
         "l-populate"      = "l_populate"
+        "l-backend"       = "l_backend"
     }
 
     repository_base_url = var.ecr_repository_url 
@@ -96,6 +97,8 @@ resource "aws_iam_role_policy" "sqs_policy" {
       {
         Effect = "Allow"
         Action = [
+          "sqs:SendMessage",
+          "sqs:GetQueueUrl",
           "sqs:ReceiveMessage",
           "sqs:DeleteMessage",
           "sqs:GetQueueAttributes",
