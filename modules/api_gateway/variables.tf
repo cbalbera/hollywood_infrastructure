@@ -25,3 +25,11 @@ variable "stage_name" {
   type        = string
   default     = "v1"
 }
+
+variable "route_configurations" {
+  default = {
+    backend_route = [
+      "{proxy+}"
+    ]
+  }
+}

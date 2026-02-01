@@ -85,6 +85,14 @@ resource "aws_lambda_event_source_mapping" "sqs_trigger" {
   function_response_types = ["ReportBatchItemFailures"]
 }
 
+# required for a number of everyday operations, including writing to CloudWatch logs
+resource "aws_iam_role_policy_attachment" "basic_execution" {
+  for_each = local.lambda_functions
+
+  role       = aws_iam_role.processor_role[each.key].name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 resource "aws_iam_role_policy" "sqs_policy" {
   for_each = local.lambda_functions
 
