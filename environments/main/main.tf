@@ -8,17 +8,20 @@ module "ecr" {
 module "lambda" {
     source = "./../../modules/lambda"
 
-    project_name        = var.project_name
-    env                 = var.env
-    ecr_repository_url  = "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project_name}-${var.env}"
-    sqs_queue_arn       = module.sqs.queue_arn
-    dlq_arn             = module.sqs.dlq_arn
+    project_name            = var.project_name
+    env                     = var.env
+    ecr_repository_url      = "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project_name}-${var.env}"
+    sqs_queue_arn           = module.sqs.queue_arn
+    dlq_arn                 = module.sqs.dlq_arn
+    populate_sql_queue_url  = module.sqs.queue_url
+    lambda_log_level        = var.lambda_log_level
 
     # tfvars
     db_name      = var.db_name
     db_pwd       = var.db_pwd
     db_host      = var.db_host
     db_user      = var.db_user
+    tmdb_api_key = var.tmdb_api_key
 }
 
 module "sqs" {

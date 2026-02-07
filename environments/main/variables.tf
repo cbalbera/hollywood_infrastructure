@@ -44,3 +44,14 @@ variable "db_user" {
   type        = string
   default     = "placeholder"
 }
+
+variable "tmdb_api_key" {
+  description = "API key for TMDB (themoviedb.org)"
+  type        = string
+}
+
+variable "lambda_log_level" {
+  description = "Log level for the Lambda function"
+  type        = string
+  default     = "DEBUG"
+}

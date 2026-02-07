@@ -8,6 +8,16 @@ variable "env" {
   type        = string
 }
 
+variable "tmdb_api_key" {
+  description = "API key for TMDB (themoviedb.org)"
+  type        = string
+}
+
+variable "lambda_log_level" {
+  description = "Log level for the Lambda function"
+  type        = string
+}
+
 variable "tags" {
   description = "Tags for lambdas"
   type        = map(string)
@@ -63,6 +73,11 @@ variable "db_user" {
 
 variable "sqs_queue_arn" {
   description = "ARN of the SQS queue to trigger populate lambda"
+  type        = string
+}
+
+variable "populate_sql_queue_url" {
+  description = "URL of the SQS queue to trigger populate lambda"
   type        = string
 }
 
