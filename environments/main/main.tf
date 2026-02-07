@@ -32,11 +32,11 @@ module "sqs" {
 }
 
 module "api_gateway" {
-  source = "../../modules/api_gateway"
+    source = "../../modules/api_gateway"
 
-  project_name         = var.project_name
-  env                  = var.env
-  lambda_invoke_arn    = module.lambda.lambda_backend_invoke_arn
-  lambda_function_name = module.lambda.lambda_backend_function_name
+    project_name                 = var.project_name
+    env                          = var.env
+    lambda_backend_invoke_arn    = module.lambda.lambda_backend_invoke_arn
+    lambda_backend_function_name = module.lambda.lambda_backend_function_name
 
 }
