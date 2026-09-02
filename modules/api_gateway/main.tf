@@ -12,7 +12,10 @@ resource "aws_apigatewayv2_api" "main" {
       "x-amz-date",
       "x-amz-security-token"
     ]
-    # allow_methods = ["ANY"]
+    # "ANY" is a route key, not an HTTP method - API Gateway rejects it here.
+    # Without allow_methods, preflight responses omit Access-Control-Allow-Methods
+    # and browsers block every non-simple request.
+    allow_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     allow_origins = ["*"]
     expose_headers = [
       "content-type"
